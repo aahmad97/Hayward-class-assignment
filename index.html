@@ -6,71 +6,7 @@
     <meta name="author" content="Student">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haywards Notes App</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #7070e6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header, footer {
-            background-color: #e4d7fa;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-        }
-        .container {
-            display: grid;
-            grid-template-columns: 1fr;
-            max-width: 600px;
-            width: 100%;
-            gap: 20px;
-            background-color: #ffffff;
-            border: 1px solid #989af5;
-            padding: 15px;
-        }
-        .flexbox-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .note-input, .note-output {
-            padding: 10px;
-            background-color: #f8f8ff;
-            border-radius: 5px;
-        }
-        .note-input input {
-            width: 100%;
-            padding: 8px;
-        }
-        .note-input button {
-            padding: 8px 12px;
-            background-color: #faebbc;
-            color: black;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .note-input button:hover {
-            background-color: #ae944c;
-        }
-        .note-output p {
-            padding: 10px;
-            border: 1px solid #f1d67a;
-            cursor: pointer;
-        }
-        .note-output p:nth-child(even) {
-            background-color: #ccc;
-        }
-        .note-output p:nth-child(odd) {
-            background-color: #eee;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -96,41 +32,7 @@
         <p>2025 Notes Application. All rights are reserved.</p>
     </footer>
 
-    <script>
-        "use strict";
-
-        function createNote() {
-            let input = document.getElementById("input-note");
-            let output = document.querySelector(".note-output");
-            let inputVal = input.value.trim();
-            if (inputVal !== "") {
-                let p = document.createElement("p");
-                p.appendChild(document.createTextNode(inputVal));
-                output.appendChild(p);
-                input.value = "";
-
-                // Remove "No notes recorded yet..." if it exists
-                let defaultText = output.querySelector("p:first-child");
-                if (defaultText && defaultText.innerText === "No notes recorded yet...") {
-                    output.removeChild(defaultText);
-                }
-            }
-        }
-
-        document.getElementById("add-note").addEventListener("click", createNote);
-        document.getElementById("input-note").addEventListener("keypress", (e) => {
-            if (e.keyCode === 13) {
-                createNote();
-            }
-        });
-
-        // Click to remove note
-        document.querySelector(".note-output").addEventListener("click", (e) => {
-            if (e.target.tagName === "P") {
-                e.target.remove();
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
 
