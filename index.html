@@ -4,38 +4,57 @@
     <meta charset="UTF-8">
     <meta name="description" content="Simple notes app">
     <meta name="author" content="Student">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haywards Notes App</title>
-    <a href rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #7070e6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         header, footer {
             background-color: #e4d7fa;
             padding: 10px;
             text-align: center;
+            width: 100%;
         }
-        main {
-            padding: 15px;
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 600px;
+            width: 100%;
+            gap: 20px;
             background-color: #ffffff;
             border: 1px solid #989af5;
+            padding: 15px;
+        }
+        .flexbox-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         .note-input, .note-output {
-            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f8ff;
+            border-radius: 5px;
         }
         .note-input input {
-            width: 60%;
+            width: 100%;
             padding: 8px;
         }
         .note-input button {
             padding: 8px 12px;
             background-color: #faebbc;
-            color: white;
+            color: black;
             border: none;
             cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
         }
         .note-input button:hover {
             background-color: #ae944c;
@@ -58,40 +77,60 @@
         <h1>Notes App</h1>
         <p>Record your thoughts</p>
     </header>
-    <main>
-        <section class="note-input">
-            <h5>Add Note</h5>
-            <input type="text" id="input-note" placeholder="Write a note here..." required>
-            <button id="add-note">Add Note</button>
-        </section>
-        <section class="note-output">
-            <h5>Notes</h5>
-            <p>No notes recorded yet...</p>
+
+    <main class="container">
+        <section class="flexbox-layout">
+            <div class="note-input">
+                <h5>Add Note</h5>
+                <input type="text" id="input-note" placeholder="Write a note here..." required>
+                <button id="add-note">Add Note</button>
+            </div>
+            <div class="note-output">
+                <h5>Notes</h5>
+                <p>No notes recorded yet...</p>
+            </div>
         </section>
     </main>
+
     <footer>
         <p>2025 Notes Application. All rights are reserved.</p>
     </footer>
+
     <script>
         "use strict";
+
         function createNote() {
             let input = document.getElementById("input-note");
             let output = document.querySelector(".note-output");
             let inputVal = input.value.trim();
             if (inputVal !== "") {
                 let p = document.createElement("p");
-                let noteText = document.createTextNode(inputVal);
-                p.appendChild(noteText);
+                p.appendChild(document.createTextNode(inputVal));
                 output.appendChild(p);
                 input.value = "";
+
+                // Remove "No notes recorded yet..." if it exists
+                let defaultText = output.querySelector("p:first-child");
+                if (defaultText && defaultText.innerText === "No notes recorded yet...") {
+                    output.removeChild(defaultText);
+                }
             }
         }
+
         document.getElementById("add-note").addEventListener("click", createNote);
         document.getElementById("input-note").addEventListener("keypress", (e) => {
             if (e.keyCode === 13) {
                 createNote();
             }
         });
+
+        // Click to remove note
+        document.querySelector(".note-output").addEventListener("click", (e) => {
+            if (e.target.tagName === "P") {
+                e.target.remove();
+            }
+        });
     </script>
 </body>
 </html>
+
